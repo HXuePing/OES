@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oes.mapper.ExamGradeMapper">
+  <resultMap id="BaseResultMap" type="com.oes.pojo.ExamGrade">
+    <id column="exam_grade_id" jdbcType="INTEGER" property="examGradeId" />
+    <result column="exam_user_id" jdbcType="INTEGER" property="examUserId" />
+    <result column="exam_subject_id" jdbcType="INTEGER" property="examSubjectId" />
+    <result column="exam_grade_point" jdbcType="INTEGER" property="examGradePoint" />
+    <result column="exam_grade_right" jdbcType="INTEGER" property="examGradeRight" />
+    <result column="exam_grade_sum" jdbcType="INTEGER" property="examGradeSum" />
+    <result column="exam_grade_time" jdbcType="TIMESTAMP" property="examGradeTime" />
+    <result column="exam_grade_flag" jdbcType="INTEGER" property="examGradeFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exam_grade_id, exam_user_id, exam_subject_id, exam_grade_point, exam_grade_right, 
+    exam_grade_sum, exam_grade_time, exam_grade_flag
+  </sql>
+  <!-- 查找所有post -->
+	<select id="findAllGrade" resultMap="BaseResultMap">
+		select * from exam_grade
+	</select>
+	<!-- 查找所有学生成绩 -->
+	<select id="findAllStuGrade" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from exam_grade
+		where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+	</select>
+	<!-- 查找考试日期 -->
+	<select id="findDate" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from exam_grade
+		where DATE_FORMAT(exam_grade_time,'%Y-%m-%d') = #{examGradeTime}
+	</select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_grade
+    where exam_grade_id = #{examGradeId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 黄 -->
+  
+  <select id="selectByPrimarysub" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_grade
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="selectOne" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_grade
+    where exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_grade
+    where exam_grade_id = #{examGradeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oes.pojo.ExamGrade">
+    insert into exam_grade (exam_grade_id, exam_user_id, exam_subject_id, 
+      exam_grade_point, exam_grade_right, exam_grade_sum, 
+      exam_grade_time, exam_grade_flag)
+    values (#{examGradeId,jdbcType=INTEGER}, #{examUserId,jdbcType=INTEGER}, #{examSubjectId,jdbcType=INTEGER}, 
+      #{examGradePoint,jdbcType=INTEGER}, #{examGradeRight,jdbcType=INTEGER}, #{examGradeSum,jdbcType=INTEGER}, 
+      #{examGradeTime,jdbcType=TIMESTAMP}, #{examGradeFlag,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oes.pojo.ExamGrade">
+    insert into exam_grade
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examGradeId != null">
+        exam_grade_id,
+      </if>
+      <if test="examuserId != null">
+        exam_user_id,
+      </if>
+      <if test="examSubjectId != null">
+        exam_subject_id,
+      </if>
+      <if test="examGradePoint != null">
+        exam_grade_point,
+      </if>
+      <if test="examGradeRight != null">
+        exam_grade_right,
+      </if>
+      <if test="examGradeSum != null">
+        exam_grade_sum,
+      </if>
+      <if test="examGradeTime != null">
+        exam_grade_time,
+      </if>
+      <if test="examGradeFlag != null">
+        exam_grade_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examGradeId != null">
+        #{examGradeId,jdbcType=INTEGER},
+      </if>
+      <if test="examUserId != null">
+        #{examUserId,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectId != null">
+        #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="examGradePoint != null">
+        #{examGradePoint,jdbcType=INTEGER},
+      </if>
+      <if test="examGradeRight != null">
+        #{examGradeRight,jdbcType=INTEGER},
+      </if>
+      <if test="examGradeSum != null">
+        #{examGradeSum,jdbcType=INTEGER},
+      </if>
+      <if test="examGradeTime != null">
+        #{examGradeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examGradeFlag != null">
+        #{examGradeFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oes.pojo.ExamGrade">
+    update exam_grade
+    <set>
+      <if test="examStuId != null">
+        exam_stu_id = #{examStuId,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectId != null">
+        exam_subject_id = #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="examGradePoint != null">
+        exam_grade_point = #{examGradePoint,jdbcType=INTEGER},
+      </if>
+      <if test="examGradeRight != null">
+        exam_grade_right = #{examGradeRight,jdbcType=INTEGER},
+      </if>
+      <if test="examGradeSum != null">
+        exam_grade_sum = #{examGradeSum,jdbcType=INTEGER},
+      </if>
+      <if test="examGradeTime != null">
+        exam_grade_time = #{examGradeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examGradeFlag != null">
+        exam_grade_flag = #{examGradeFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exam_grade_id = #{examGradeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oes.pojo.ExamGrade">
+    update exam_grade
+    set exam_stu_id = #{examStuId,jdbcType=INTEGER},
+      exam_subject_id = #{examSubjectId,jdbcType=INTEGER},
+      exam_grade_point = #{examGradePoint,jdbcType=INTEGER},
+      exam_grade_right = #{examGradeRight,jdbcType=INTEGER},
+      exam_grade_sum = #{examGradeSum,jdbcType=INTEGER},
+      exam_grade_time = #{examGradeTime,jdbcType=TIMESTAMP},
+      exam_grade_flag = #{examGradeFlag,jdbcType=INTEGER}
+    where exam_grade_id = #{examGradeId,jdbcType=INTEGER}
+  </update>
+</mapper>

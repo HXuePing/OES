@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oes.mapper.ExamSubjectMapper">
+  <resultMap id="BaseResultMap" type="com.oes.pojo.ExamSubject">
+    <id column="exam_subject_id" jdbcType="INTEGER" property="examSubjectId" />
+    <result column="exam_subject_name" jdbcType="VARCHAR" property="examSubjectName" />
+    <result column="exam_subject_description" jdbcType="VARCHAR" property="examSubjectDescription" />
+    <result column="exam_subject_tnumber" jdbcType="INTEGER" property="examSubjectTnumber" />
+    <result column="exam_subject_totaltime" jdbcType="TIMESTAMP" property="examSubjectTotaltime" />
+    <result column="exam_subject_sum" jdbcType="INTEGER" property="examSubjectSum" />
+    <result column="exam_subject_flag" jdbcType="INTEGER" property="examSubjectFlag" />
+    <result column="exam_subject_done" jdbcType="INTEGER" property="examSubjectDone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exam_subject_id, exam_subject_name, exam_subject_description, exam_subject_tnumber, 
+    exam_subject_totaltime, exam_subject_sum, exam_subject_flag, exam_subject_done
+  </sql>
+  <!-- 查找所有 -->
+	<select id="findAllSubject" resultMap="BaseResultMap">
+		select * from exam_subject
+	</select>
+	<!-- 查找科目名 -->
+	<select id="findSubjectName" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> 
+		from exam_subject
+		where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+		</select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_subject
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 黄 -->
+  <select id="selectByPrimary" parameterType="java.lang.Integer" resultMap="BaseResultMap">  
+     select ee.* from exam_subject ee, exam_student_subject es where es.exam_user_id=#{examUserId,jdbcType=INTEGER}  and ee.exam_subject_id=es.exam_subject_id;
+  </select>
+  	<!--查找所有的科目列表  -->
+   <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_subject
+  </select>
+  
+  <!-- 获取时间值 --> 
+  <select id="selectsubtime" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_subject
+     where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </select>
+  
+  	<!--查找未做或者已做的科目 -->
+   <select id="selectBysubjectDone" parameterType="com.oes.pojo.ExamInfo" resultMap="BaseResultMap">
+  
+  select ee.* from exam_subject ee, exam_student_subject es where es.exam_user_id=#{examUserid,jdbcType=INTEGER} and ee.exam_subject_done=#{examdone,jdbcType=INTEGER}  and ee.exam_subject_id=es.exam_subject_id;
+  </select>
+  
+  
+  <update id="updateBydone" parameterType="com.oes.pojo.ExamSubject">
+    update exam_subject
+    set   exam_subject_done = #{examSubjectDone,jdbcType=INTEGER}
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_subject
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oes.pojo.ExamSubject">
+    insert into exam_subject (exam_subject_id, exam_subject_name, exam_subject_description, 
+      exam_subject_tnumber, exam_subject_totaltime, 
+      exam_subject_sum, exam_subject_flag, exam_subject_done
+      )
+    values (#{examSubjectId,jdbcType=INTEGER}, #{examSubjectName,jdbcType=VARCHAR}, #{examSubjectDescription,jdbcType=VARCHAR}, 
+      #{examSubjectTnumber,jdbcType=INTEGER}, #{examSubjectTotaltime,jdbcType=TIMESTAMP}, 
+      #{examSubjectSum,jdbcType=INTEGER}, #{examSubjectFlag,jdbcType=INTEGER}, #{examSubjectDone,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.oes.pojo.ExamSubject">
+    insert into exam_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examSubjectId != null">
+        exam_subject_id,
+      </if>
+      <if test="examSubjectName != null">
+        exam_subject_name,
+      </if>
+      <if test="examSubjectDescription != null">
+        exam_subject_description,
+      </if>
+      <if test="examSubjectTnumber != null">
+        exam_subject_tnumber,
+      </if>
+      <if test="examSubjectTotaltime != null">
+        exam_subject_totaltime,
+      </if>
+      <if test="examSubjectSum != null">
+        exam_subject_sum,
+      </if>
+      <if test="examSubjectFlag != null">
+        exam_subject_flag,
+      </if>
+      <if test="examSubjectDone != null">
+        exam_subject_done,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examSubjectId != null">
+        #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectName != null">
+        #{examSubjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="examSubjectDescription != null">
+        #{examSubjectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="examSubjectTnumber != null">
+        #{examSubjectTnumber,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectTotaltime != null">
+        #{examSubjectTotaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examSubjectSum != null">
+        #{examSubjectSum,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectFlag != null">
+        #{examSubjectFlag,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectDone != null">
+        #{examSubjectDone,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oes.pojo.ExamSubject">
+    update exam_subject
+    <set>
+      <if test="examSubjectName != null">
+        exam_subject_name = #{examSubjectName,jdbcType=VARCHAR},
+      </if>
+      <if test="examSubjectDescription != null">
+        exam_subject_description = #{examSubjectDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="examSubjectTnumber != null">
+        exam_subject_tnumber = #{examSubjectTnumber,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectTotaltime != null">
+        exam_subject_totaltime = #{examSubjectTotaltime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examSubjectSum != null">
+        exam_subject_sum = #{examSubjectSum,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectFlag != null">
+        exam_subject_flag = #{examSubjectFlag,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectDone != null">
+        exam_subject_done = #{examSubjectDone,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oes.pojo.ExamSubject">
+    update exam_subject
+    set exam_subject_name = #{examSubjectName,jdbcType=VARCHAR},
+      exam_subject_description = #{examSubjectDescription,jdbcType=VARCHAR},
+      exam_subject_tnumber = #{examSubjectTnumber,jdbcType=INTEGER},
+      exam_subject_totaltime = #{examSubjectTotaltime,jdbcType=TIMESTAMP},
+      exam_subject_sum = #{examSubjectSum,jdbcType=INTEGER},
+      exam_subject_flag = #{examSubjectFlag,jdbcType=INTEGER},
+      exam_subject_done = #{examSubjectDone,jdbcType=INTEGER}
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </update>
+</mapper>

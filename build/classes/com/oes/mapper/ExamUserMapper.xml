@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oes.mapper.ExamUserMapper">
+  <resultMap id="BaseResultMap" type="com.oes.pojo.ExamUser">
+    <id column="exam_user_id" jdbcType="INTEGER" property="examUserId" />
+    <result column="exam_user_name" jdbcType="VARCHAR" property="examUserName" />
+    <result column="exam_user_number" jdbcType="VARCHAR" property="examUserNumber" />
+    <result column="exam_user_password" jdbcType="VARCHAR" property="examUserPassword" />
+    <result column="exam_user_teacher" jdbcType="VARCHAR" property="examUserTeacher" />
+    <result column="exam_user_sex" jdbcType="VARCHAR" property="examUserSex" />
+    <result column="exam_user_birthday" jdbcType="DATE" property="examUserBirthday" />
+    <result column="exam_user_tel" jdbcType="VARCHAR" property="examUserTel" />
+    <result column="exam_user_address" jdbcType="VARCHAR" property="examUserAddress" />
+    <result column="exam_user_done" jdbcType="INTEGER" property="examUserDone" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exam_user_id, exam_user_name, exam_user_number, exam_user_password, exam_user_teacher, 
+    exam_user_sex, exam_user_birthday, exam_user_tel, exam_user_address, exam_user_done
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_user
+    where exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <!-- 查找所有post -->
+	<select id="findAllStu" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from exam_user
+	</select>
+  
+<!--   通过姓名找ID -->
+  <select id="findId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_user
+    where exam_user_name = #{examUserName,jdbcType=VARCHAR}
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- 查询所有,除去老师 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_user
+    where exam_user_teacher = 0
+  </select>
+  
+  <!-- 按学号查找 -->
+   <select id="selectByexamUserNumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_user
+    where exam_user_number = #{examUserNumber,jdbcType=INTEGER}
+  </select> 
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_user
+    where exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </delete>
+  <!-- 删除一个 -->
+   <delete id="deleteByExamUserId" parameterType="java.lang.Integer">
+    delete from exam_user
+    where exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  
+  <insert id="insert" parameterType="com.oes.pojo.ExamUser">
+    insert into exam_user (exam_user_id, exam_user_name, exam_user_number, 
+      exam_user_password, exam_user_teacher, exam_user_sex, 
+      exam_user_birthday, exam_user_tel, exam_user_address, 
+      exam_user_done)
+    values (#{examUserId,jdbcType=INTEGER}, #{examUserName,jdbcType=VARCHAR}, #{examUserNumber,jdbcType=VARCHAR}, 
+      #{examUserPassword,jdbcType=VARCHAR}, #{examUserTeacher,jdbcType=VARCHAR}, #{examUserSex,jdbcType=VARCHAR}, 
+      #{examUserBirthday,jdbcType=DATE}, #{examUserTel,jdbcType=VARCHAR}, #{examUserAddress,jdbcType=VARCHAR}, 
+      #{examUserDone,jdbcType=INTEGER})
+  </insert>
+  
+  
+  <!-- 插入一个 -->
+    <insert id="insertOne" parameterType="com.oes.pojo.ExamUser">
+    insert into exam_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examUserId != null">
+        exam_user_id,
+      </if>
+      <if test="examUserName != null">
+        exam_user_name,
+      </if>
+      <if test="examUserNumber != null">
+        exam_user_number,
+      </if>
+      <if test="examUserPassword != null">
+        exam_user_password,
+      </if>
+      <if test="examUserTeacher != null">
+        exam_user_teacher,
+      </if>
+      <if test="examUserSex != null">
+        exam_user_sex,
+      </if>
+      <if test="examUserBirthday != null">
+        exam_user_birthday,
+      </if>
+      <if test="examUserTel != null">
+        exam_user_tel,
+      </if>
+      <if test="examUserAddress != null">
+        exam_user_address,
+      </if>
+      <if test="examUserDone != null">
+        exam_user_done,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examUserId != null">
+        #{examUserId,jdbcType=INTEGER},
+      </if>
+      <if test="examUserName != null">
+        #{examUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserNumber != null">
+        #{examUserNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserPassword != null">
+        #{examUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserTeacher != null">
+        #{examUserTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserSex != null">
+        #{examUserSex,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserBirthday != null">
+        #{examUserBirthday,jdbcType=DATE},
+      </if>
+      <if test="examUserTel != null">
+        #{examUserTel,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserAddress != null">
+        #{examUserAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserDone != null">
+        #{examUserDone,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <insert id="insertSelective" parameterType="com.oes.pojo.ExamUser">
+    insert into exam_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examUserId != null">
+        exam_user_id,
+      </if>
+      <if test="examUserName != null">
+        exam_user_name,
+      </if>
+      <if test="examUserNumber != null">
+        exam_user_number,
+      </if>
+      <if test="examUserPassword != null">
+        exam_user_password,
+      </if>
+      <if test="examUserTeacher != null">
+        exam_user_teacher,
+      </if>
+      <if test="examUserSex != null">
+        exam_user_sex,
+      </if>
+      <if test="examUserBirthday != null">
+        exam_user_birthday,
+      </if>
+      <if test="examUserTel != null">
+        exam_user_tel,
+      </if>
+      <if test="examUserAddress != null">
+        exam_user_address,
+      </if>
+      <if test="examUserDone != null">
+        exam_user_done,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examUserId != null">
+        #{examUserId,jdbcType=INTEGER},
+      </if>
+      <if test="examUserName != null">
+        #{examUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserNumber != null">
+        #{examUserNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserPassword != null">
+        #{examUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserTeacher != null">
+        #{examUserTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserSex != null">
+        #{examUserSex,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserBirthday != null">
+        #{examUserBirthday,jdbcType=DATE},
+      </if>
+      <if test="examUserTel != null">
+        #{examUserTel,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserAddress != null">
+        #{examUserAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserDone != null">
+        #{examUserDone,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByExamUserId" parameterType="com.oes.pojo.ExamUser">
+    update exam_user
+    <set>
+      <if test="examUserName != null">
+        exam_user_name = #{examUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserNumber != null">
+        exam_user_number = #{examUserNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserPassword != null">
+        exam_user_password = #{examUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserTeacher != null">
+        exam_user_teacher = #{examUserTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserSex != null">
+        exam_user_sex = #{examUserSex,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserBirthday != null">
+        exam_user_birthday = #{examUserBirthday,jdbcType=DATE},
+      </if>
+      <if test="examUserTel != null">
+        exam_user_tel = #{examUserTel,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserAddress != null">
+        exam_user_address = #{examUserAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserDone != null">
+        exam_user_done = #{examUserDone,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.oes.pojo.ExamUser">
+    update exam_user
+    <set>
+      <if test="examUserName != null">
+        exam_user_name = #{examUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserNumber != null">
+        exam_user_number = #{examUserNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserPassword != null">
+        exam_user_password = #{examUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserTeacher != null">
+        exam_user_teacher = #{examUserTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserSex != null">
+        exam_user_sex = #{examUserSex,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserBirthday != null">
+        exam_user_birthday = #{examUserBirthday,jdbcType=DATE},
+      </if>
+      <if test="examUserTel != null">
+        exam_user_tel = #{examUserTel,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserAddress != null">
+        exam_user_address = #{examUserAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="examUserDone != null">
+        exam_user_done = #{examUserDone,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oes.pojo.ExamUser">
+    update exam_user
+    set exam_user_name = #{examUserName,jdbcType=VARCHAR},
+      exam_user_number = #{examUserNumber,jdbcType=VARCHAR},
+      exam_user_password = #{examUserPassword,jdbcType=VARCHAR},
+      exam_user_teacher = #{examUserTeacher,jdbcType=VARCHAR},
+      exam_user_sex = #{examUserSex,jdbcType=VARCHAR},
+      exam_user_birthday = #{examUserBirthday,jdbcType=DATE},
+      exam_user_tel = #{examUserTel,jdbcType=VARCHAR},
+      exam_user_address = #{examUserAddress,jdbcType=VARCHAR},
+      exam_user_done = #{examUserDone,jdbcType=INTEGER}
+    where exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </update>
+</mapper>

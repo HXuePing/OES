@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oes.mapper.ExamTiTypeMapper">
+  <resultMap id="BaseResultMap" type="com.oes.pojo.ExamTiType">
+    <result column="exam_ti_type" jdbcType="INTEGER" property="examTiType" />
+    <result column="exam_ti_type_name" jdbcType="VARCHAR" property="examTiTypeName" />
+  </resultMap>
+  <insert id="insert" parameterType="com.oes.pojo.ExamTiType">
+    insert into exam_ti_type (exam_ti_type, exam_ti_type_name)
+    values (#{examTiType,jdbcType=INTEGER}, #{examTiTypeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oes.pojo.ExamTiType">
+    insert into exam_ti_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examTiType != null">
+        exam_ti_type,
+      </if>
+      <if test="examTiTypeName != null">
+        exam_ti_type_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examTiType != null">
+        #{examTiType,jdbcType=INTEGER},
+      </if>
+      <if test="examTiTypeName != null">
+        #{examTiTypeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

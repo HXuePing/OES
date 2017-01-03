@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oes.mapper.ExamTiMapper">
+  <resultMap id="BaseResultMap" type="com.oes.pojo.ExamTi">
+    <id column="exam_ti_id" jdbcType="INTEGER" property="examTiId" />
+    <result column="exam_subject_id" jdbcType="INTEGER" property="examSubjectId" />
+    <result column="exam_ti_name" jdbcType="VARCHAR" property="examTiName" />
+    <result column="exam_ti_optiona" jdbcType="VARCHAR" property="examTiOptiona" />
+    <result column="exam_ti_optionb" jdbcType="VARCHAR" property="examTiOptionb" />
+    <result column="exam_ti_optionc" jdbcType="VARCHAR" property="examTiOptionc" />
+    <result column="exam_ti_optiond" jdbcType="VARCHAR" property="examTiOptiond" />
+    <result column="exam_ti_key" jdbcType="VARCHAR" property="examTiKey" />
+    <result column="exam_ti_point" jdbcType="INTEGER" property="examTiPoint" />
+    <result column="exam_ti_difficulty" jdbcType="INTEGER" property="examTiDifficulty" />
+    <result column="exam_ti_type" jdbcType="INTEGER" property="examTiType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exam_ti_id, exam_subject_id, exam_ti_name, exam_ti_optiona, exam_ti_optionb, exam_ti_optionc, 
+    exam_ti_optiond, exam_ti_key, exam_ti_point, exam_ti_difficulty, exam_ti_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_ti
+    where exam_ti_id = #{examTiId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 黄 -->
+  
+  <!-- 根据subjectid去找 -->
+  <select id="selectByPrimarysub" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_ti
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_ti
+    where exam_ti_id = #{examTiId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oes.pojo.ExamTi">
+    insert into exam_ti (exam_ti_id, exam_subject_id, exam_ti_name, 
+      exam_ti_optiona, exam_ti_optionb, exam_ti_optionc, 
+      exam_ti_optiond, exam_ti_key, exam_ti_point, 
+      exam_ti_difficulty, exam_ti_type)
+    values (#{examTiId,jdbcType=INTEGER}, #{examSubjectId,jdbcType=INTEGER}, #{examTiName,jdbcType=VARCHAR}, 
+      #{examTiOptiona,jdbcType=VARCHAR}, #{examTiOptionb,jdbcType=VARCHAR}, #{examTiOptionc,jdbcType=VARCHAR}, 
+      #{examTiOptiond,jdbcType=VARCHAR}, #{examTiKey,jdbcType=VARCHAR}, #{examTiPoint,jdbcType=INTEGER}, 
+      #{examTiDifficulty,jdbcType=INTEGER}, #{examTiType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oes.pojo.ExamTi">
+    insert into exam_ti
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examTiId != null">
+        exam_ti_id,
+      </if>
+      <if test="examSubjectId != null">
+        exam_subject_id,
+      </if>
+      <if test="examTiName != null">
+        exam_ti_name,
+      </if>
+      <if test="examTiOptiona != null">
+        exam_ti_optiona,
+      </if>
+      <if test="examTiOptionb != null">
+        exam_ti_optionb,
+      </if>
+      <if test="examTiOptionc != null">
+        exam_ti_optionc,
+      </if>
+      <if test="examTiOptiond != null">
+        exam_ti_optiond,
+      </if>
+      <if test="examTiKey != null">
+        exam_ti_key,
+      </if>
+      <if test="examTiPoint != null">
+        exam_ti_point,
+      </if>
+      <if test="examTiDifficulty != null">
+        exam_ti_difficulty,
+      </if>
+      <if test="examTiType != null">
+        exam_ti_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examTiId != null">
+        #{examTiId,jdbcType=INTEGER},
+      </if>
+      <if test="examSubjectId != null">
+        #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="examTiName != null">
+        #{examTiName,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptiona != null">
+        #{examTiOptiona,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptionb != null">
+        #{examTiOptionb,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptionc != null">
+        #{examTiOptionc,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptiond != null">
+        #{examTiOptiond,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiKey != null">
+        #{examTiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiPoint != null">
+        #{examTiPoint,jdbcType=INTEGER},
+      </if>
+      <if test="examTiDifficulty != null">
+        #{examTiDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="examTiType != null">
+        #{examTiType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oes.pojo.ExamTi">
+    update exam_ti
+    <set>
+      <if test="examSubjectId != null">
+        exam_subject_id = #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="examTiName != null">
+        exam_ti_name = #{examTiName,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptiona != null">
+        exam_ti_optiona = #{examTiOptiona,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptionb != null">
+        exam_ti_optionb = #{examTiOptionb,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptionc != null">
+        exam_ti_optionc = #{examTiOptionc,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiOptiond != null">
+        exam_ti_optiond = #{examTiOptiond,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiKey != null">
+        exam_ti_key = #{examTiKey,jdbcType=VARCHAR},
+      </if>
+      <if test="examTiPoint != null">
+        exam_ti_point = #{examTiPoint,jdbcType=INTEGER},
+      </if>
+      <if test="examTiDifficulty != null">
+        exam_ti_difficulty = #{examTiDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="examTiType != null">
+        exam_ti_type = #{examTiType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exam_ti_id = #{examTiId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oes.pojo.ExamTi">
+    update exam_ti
+    set exam_subject_id = #{examSubjectId,jdbcType=INTEGER},
+      exam_ti_name = #{examTiName,jdbcType=VARCHAR},
+      exam_ti_optiona = #{examTiOptiona,jdbcType=VARCHAR},
+      exam_ti_optionb = #{examTiOptionb,jdbcType=VARCHAR},
+      exam_ti_optionc = #{examTiOptionc,jdbcType=VARCHAR},
+      exam_ti_optiond = #{examTiOptiond,jdbcType=VARCHAR},
+      exam_ti_key = #{examTiKey,jdbcType=VARCHAR},
+      exam_ti_point = #{examTiPoint,jdbcType=INTEGER},
+      exam_ti_difficulty = #{examTiDifficulty,jdbcType=INTEGER},
+      exam_ti_type = #{examTiType,jdbcType=INTEGER}
+    where exam_ti_id = #{examTiId,jdbcType=INTEGER}
+  </update>
+</mapper>

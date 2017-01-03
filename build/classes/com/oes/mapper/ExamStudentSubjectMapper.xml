@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oes.mapper.ExamStudentSubjectMapper">
+  <resultMap id="BaseResultMap" type="com.oes.pojo.ExamStudentSubject">
+    <id column="exam_subject_id" jdbcType="INTEGER" property="examSubjectId" />
+    <id column="exam_user_id" jdbcType="INTEGER" property="examUserId" />
+    <result column="UPDUSER" jdbcType="VARCHAR" property="upduser" />
+    <result column="UPDDATE" jdbcType="TIMESTAMP" property="upddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exam_subject_id, exam_user_id, UPDUSER, UPDDATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.oes.pojo.ExamStudentSubjectKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_student_subject
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+      and exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.oes.pojo.ExamStudentSubjectKey">
+    delete from exam_student_subject
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+      and exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oes.pojo.ExamStudentSubject">
+    insert into exam_student_subject (exam_subject_id, exam_user_id, UPDUSER, 
+      UPDDATE)
+    values (#{examSubjectId,jdbcType=INTEGER}, #{examUserId,jdbcType=INTEGER}, #{upduser,jdbcType=VARCHAR}, 
+      #{upddate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oes.pojo.ExamStudentSubject">
+    insert into exam_student_subject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examSubjectId != null">
+        exam_subject_id,
+      </if>
+      <if test="examUserId != null">
+        exam_user_id,
+      </if>
+      <if test="upduser != null">
+        UPDUSER,
+      </if>
+      <if test="upddate != null">
+        UPDDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examSubjectId != null">
+        #{examSubjectId,jdbcType=INTEGER},
+      </if>
+      <if test="examUserId != null">
+        #{examUserId,jdbcType=INTEGER},
+      </if>
+      <if test="upduser != null">
+        #{upduser,jdbcType=VARCHAR},
+      </if>
+      <if test="upddate != null">
+        #{upddate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oes.pojo.ExamStudentSubject">
+    update exam_student_subject
+    <set>
+      <if test="upduser != null">
+        UPDUSER = #{upduser,jdbcType=VARCHAR},
+      </if>
+      <if test="upddate != null">
+        UPDDATE = #{upddate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+      and exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oes.pojo.ExamStudentSubject">
+    update exam_student_subject
+    set UPDUSER = #{upduser,jdbcType=VARCHAR},
+      UPDDATE = #{upddate,jdbcType=TIMESTAMP}
+    where exam_subject_id = #{examSubjectId,jdbcType=INTEGER}
+      and exam_user_id = #{examUserId,jdbcType=INTEGER}
+  </update>
+</mapper>

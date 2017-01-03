@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<classPathEntry location="D:\JavaEE\work-sts\OES\WebContent\WEB-INF\lib\mysql-connector-java-5.1.10-bin.jar"/>
+  <context id="context1">
+  
+    <!-- 可以将生成的实体类的Example类修改成VO类 -->
+    <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+	<property name="searchString" value="Example$" />
+	<property name="replaceString" value="VO" />  
+    </plugin>
+    
+    <!-- commentGenerator 去除自动生成的注释 -->  
+    <commentGenerator>  
+         <property name="suppressAllComments" value="true" />  
+         <property name="suppressDate" value="true" />  
+    </commentGenerator> 
+  
+    <jdbcConnection connectionURL= "jdbc:mysql://localhost:3306/examination?characterEncoding=UTF-8" driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
+    <javaModelGenerator targetPackage="com.oes.pojo" targetProject="OES\src" />
+    <sqlMapGenerator targetPackage="com.oes.mapper" targetProject="OES\src" />
+    <javaClientGenerator targetPackage="com.oes.mapper" targetProject="OES\src" type="XMLMAPPER" />
+    
+    <table tableName="exam_user" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+   
+    <table tableName="exam_subject" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+    <table tableName="exam_student_subject" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+    <table tableName="exam_ti" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+    <table tableName="exam_ti_difficulty" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+    <table tableName="exam_ti_type" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+    <table tableName="exam_grade" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"></table>
+    
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oes.mapper.ExamTiDifficultyMapper">
+  <resultMap id="BaseResultMap" type="com.oes.pojo.ExamTiDifficulty">
+    <result column="exam_ti_difficulty" jdbcType="INTEGER" property="examTiDifficulty" />
+    <result column="exam_ti_difficulty_name" jdbcType="VARCHAR" property="examTiDifficultyName" />
+  </resultMap>
+  <insert id="insert" parameterType="com.oes.pojo.ExamTiDifficulty">
+    insert into exam_ti_difficulty (exam_ti_difficulty, exam_ti_difficulty_name
+      )
+    values (#{examTiDifficulty,jdbcType=INTEGER}, #{examTiDifficultyName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.oes.pojo.ExamTiDifficulty">
+    insert into exam_ti_difficulty
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examTiDifficulty != null">
+        exam_ti_difficulty,
+      </if>
+      <if test="examTiDifficultyName != null">
+        exam_ti_difficulty_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examTiDifficulty != null">
+        #{examTiDifficulty,jdbcType=INTEGER},
+      </if>
+      <if test="examTiDifficultyName != null">
+        #{examTiDifficultyName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
